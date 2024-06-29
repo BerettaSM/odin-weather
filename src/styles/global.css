@@ -50,3 +50,146 @@ h6 {
 
 /* STYLES */
 
+:root {
+  --COLOR_PRIMARY: #3f72af;
+  --COLOR_SECONDARY: #112d4e;
+  --COLOR_GRAY-100: #f9f7f7;
+  --COLOR_GRAY-300: #dbe2ef;
+}
+
+body {
+  background-color: var(--COLOR_GRAY-300);
+  padding: 0 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.app {
+  height: 100%;
+}
+
+header {
+  display: flex;
+  padding: 16px 0;
+  color: var(--COLOR_SECONDARY);
+}
+
+.temperature-fieldset {
+  margin-left: auto;
+  border: none;
+  text-align: center;
+  font-size: 1.25rem;
+
+  .temperature-form {
+    display: flex;
+    border-radius: 100vmax;
+    overflow: hidden;
+
+    .form-control {
+      height: 44px;
+      width: 55px;
+
+      label,
+      input {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      label {
+        display: grid;
+        place-content: center;
+        user-select: none;
+        font-weight: bold;
+        border: 1px solid var(--COLOR_SECONDARY);
+        transition:
+          background-color 200ms ease-in-out,
+          color 200ms ease-in-out;
+      }
+
+      &:first-of-type label {
+        border-radius: 100vmax 0 0 100vmax;
+      }
+
+      &:last-of-type label {
+        border-radius: 0 100vmax 100vmax 0;
+      }
+
+      input {
+        display: none;
+      }
+
+      input:checked + label {
+        color: var(--COLOR_GRAY-100);
+        background-color: var(--COLOR_SECONDARY);
+      }
+    }
+  }
+}
+
+main {
+  .location-form {
+    width: fit-content;
+    margin: auto;
+
+    .form-control {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      font-size: 1.25rem;
+
+      .input-wrapper {
+        border: 2px solid var(--COLOR_SECONDARY);
+        border-radius: 12px;
+        overflow: hidden;
+
+        input {
+          padding: 16px 16px 8px;
+          border-radius: 12px 12px 0 0;
+          border: none;
+        }
+
+        .debounce-bar {
+          --time: 1500ms;
+          height: 8px;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--COLOR_SECONDARY);
+            transform-origin: left center;
+            transform: scaleX(1);
+            transition: transform var(--time) ease-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-control {
+  position: relative;
+
+  input {
+    background-color: var(--COLOR_GRAY-100);
+  }
+}
+
+.max-width {
+  max-width: 56rem;
+  margin: auto;
+}

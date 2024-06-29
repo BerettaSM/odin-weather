@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
 </head>
+
 <body>
-    
+
+    <div class="app max-width">
+
+        <header>
+            <h1>Weather App</h1>
+
+            <fieldset class="temperature-fieldset">
+                <legend>Scale</legend>
+                <form id="temperatures" class="temperature-form">
+                    <div class="form-control">
+                        <input type="radio" name="temp-scale" id="celsius" checked>
+                        <label for="celsius">C°</label>
+                    </div>
+                    <div class="form-control">
+                        <input type="radio" name="temp-scale" id="fahrenheit">
+                        <label for="fahrenheit">F°</label>
+                    </div>
+                </form>
+            </fieldset>
+        </header>
+
+        <main>
+            <form id="location" class="location-form">
+                <div class="form-control">
+                    <label for="celsius">Location</label>
+                    <div class="input-wrapper">
+                        <input type="text" name="location" placeholder="Enter location">
+                        <div class="debounce-bar"></div>
+                    </div>
+                </div>
+            </form>
+
+        </main>
+
+    </div>
+
 </body>
+
 </html>
