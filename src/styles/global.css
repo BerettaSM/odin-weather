@@ -51,11 +51,17 @@ h6 {
 /* STYLES */
 
 :root {
-  --COLOR_PRIMARY: #3f72af;
-  --COLOR_SECONDARY: #112d4e;
-  --COLOR_GRAY-100: #f9f7f7;
-  --COLOR_GRAY-300: #dbe2ef;
-  --COLOR_GRAY-500: hsl(219, 28%, 70%);
+  --MORNING_HUE: 60;
+  --AFTERNOON_HUE: 360;
+  --NIGHT_HUE: 225;
+
+  --HUE: var(--NIGHT_HUE);
+
+  --COLOR_PRIMARY: hsl(var(--HUE), 47%, 47%);
+  --COLOR_SECONDARY: hsl(var(--HUE), 64%, 19%);
+  --COLOR_GRAY-100: hsl(var(--HUE), 14%, 97%);
+  --COLOR_GRAY-300: hsl(var(--HUE), 38%, 90%);
+  --COLOR_GRAY-500: hsl(var(--HUE), 28%, 70%);
 }
 
 body {
@@ -63,22 +69,17 @@ body {
   padding: 0 16px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: relative;
-
-  &::before {
-    position: absolute;
-    content: '';
-    inset: 0;
-    height: 100%;
-    width: 100%;
-  }
 }
 
 .app {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
   display: flex;
+  align-items: center;
   padding: 16px 0;
   color: var(--COLOR_SECONDARY);
 }
@@ -139,9 +140,14 @@ header {
 }
 
 main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
   .location-form {
     width: fit-content;
     margin: auto;
+    padding: 16px 0;
 
     .form-control {
       display: flex;
@@ -180,6 +186,63 @@ main {
       }
     }
   }
+
+  .weather-info {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    grid-template-rows: 1fr 200px;
+    grid-template-areas:
+      'summary additional'
+      'forecast forecast';
+
+    .summary {
+      grid-area: summary;
+
+      .condition {
+        font-size: 2.5rem;
+      }
+
+      .location {
+        font-size: 1.35rem;
+      }
+
+      .datetime {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+      }
+
+      .temperature-scale-wrapper {
+        font-size: 4rem;
+      }
+    }
+
+    .additional {
+      grid-area: additional;
+      display: grid;
+      grid-auto-columns: max-content;
+      grid-auto-rows: min-content;
+      justify-content: end;
+      gap: 8px;
+    }
+
+    .forecast {
+      grid-area: forecast;
+    }
+
+    padding: 8px 0;
+  }
+}
+
+.additional-info {
+  display: flex;
+  gap: 8px;
+  width: fit-content;
+
+  span {
+    font-size: 1.5rem;
+  }
 }
 
 .form-control {
@@ -193,6 +256,23 @@ main {
 .max-width {
   max-width: 56rem;
   margin: auto;
+}
+
+.icon {
+  width: 2rem;
+  fill: var(--COLOR_PRIMARY);
+
+  &.sm {
+    width: 1.5rem;
+  }
+
+  &.lg {
+    width: 3rem;
+  }
+
+  &.xl {
+    width: 6rem;
+  }
 }
 
 .spinner {
