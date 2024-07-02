@@ -55,6 +55,7 @@ h6 {
   --COLOR_SECONDARY: #112d4e;
   --COLOR_GRAY-100: #f9f7f7;
   --COLOR_GRAY-300: #dbe2ef;
+  --COLOR_GRAY-500: hsl(219, 28%, 70%);
 }
 
 body {
@@ -192,4 +193,47 @@ main {
 .max-width {
   max-width: 56rem;
   margin: auto;
+}
+
+.spinner {
+  position: absolute;
+  height: 90px;
+  width: 90px;
+  inset: 0;
+  margin: auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    border-radius: 50%;
+    border: 6px solid var(--COLOR_GRAY-500);
+    border-block-start-color: var(--COLOR_PRIMARY);
+    animation: spinner 850ms infinite ease-in-out forwards;
+  }
+
+  pointer-events: none;
+  transform: scale(2);
+  opacity: 0;
+  transition:
+    transform 350ms ease-in,
+    opacity 350ms ease-in;
+}
+
+.spinner.visible {
+  transform: scale(1);
+  opacity: 1;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
 }
