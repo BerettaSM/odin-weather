@@ -57,6 +57,7 @@ h6 {
 
   --HUE: var(--NIGHT_HUE);
 
+  --COLOR_TEXT: #41414d;
   --COLOR_PRIMARY: hsl(var(--HUE), 47%, 47%);
   --COLOR_SECONDARY: hsl(var(--HUE), 64%, 19%);
   --COLOR_GRAY-100: hsl(var(--HUE), 14%, 97%);
@@ -65,6 +66,7 @@ h6 {
 }
 
 body {
+  color: var(--COLOR_TEXT);
   background-color: var(--COLOR_GRAY-300);
   padding: 0 16px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -194,7 +196,7 @@ main {
     grid-template-rows: 1fr 200px;
     grid-template-areas:
       'summary additional'
-      'forecast forecast';
+      'daily-forecasts daily-forecasts';
 
     .summary {
       grid-area: summary;
@@ -227,8 +229,44 @@ main {
       gap: 8px;
     }
 
-    .forecast {
-      grid-area: forecast;
+    .daily-forecasts {
+      grid-area: daily-forecasts;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 8px;
+
+      .forecast {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        border: 2px solid var(--COLOR_PRIMARY);
+        border-radius: 8px;
+        padding: 8px;
+
+        h6 {
+          font-size: 1rem;
+        }
+
+        .temperatures {
+          text-align: center;
+
+          .high {
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1.25;
+          }
+
+          .low {
+            font-size: 0.75rem;
+            line-height: 1;
+          }
+        }
+
+        .icon {
+          margin: auto;
+        }
+      }
     }
 
     padding: 8px 0;
