@@ -92,7 +92,7 @@ header {
   text-align: center;
   font-size: 1.25rem;
 
-  .temperature-form {
+  .temperature-control {
     display: flex;
     border-radius: 100vmax;
     overflow: hidden;
@@ -310,6 +310,36 @@ main {
 
   &.xl {
     width: 6rem;
+  }
+}
+
+.temperature-scale-wrapper {
+  position: relative;
+  overflow: hidden;
+
+  .celsius,
+  .fahrenheit {
+    transition: transform 250ms ease-in-out;
+  }
+
+  .celsius {
+    display: block;
+  }
+
+  .fahrenheit {
+    position: absolute;
+    inset: 0;
+    transform: translateY(100%);
+  }
+}
+
+.temperature-scale-wrapper.show-f {
+  .celsius {
+    transform: translateY(-100%);
+  }
+
+  .fahrenheit {
+    transform: translateY(0%);
   }
 }
 
