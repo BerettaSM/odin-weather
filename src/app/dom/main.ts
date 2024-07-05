@@ -24,7 +24,7 @@ export function renderAdditionalInfo(info: AdditionalInfo) {
   document.getElementById('additional-wind-speed-metric')!.textContent =
     `${info.wind_kph} km/h`;
   document.getElementById('additional-wind-speed-imperial')!.textContent =
-    `${info.wind_mph} mp/h`;
+    `${info.wind_mph.toFixed(1)} mp/h`;
 }
 
 export function renderCurrentInfo(info: LocationInfo) {
