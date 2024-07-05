@@ -70,6 +70,7 @@ body {
   padding: 0 16px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: relative;
+  overflow: clip;
 }
 
 .app {
@@ -144,6 +145,7 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   .search-form {
     width: fit-content;
@@ -245,10 +247,8 @@ main {
 
     .daily-forecasts {
       grid-area: daily-forecasts;
-      /* display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); */
-
       display: flex;
+      justify-content: center;
       overflow-x: auto;
       gap: 8px;
       padding: 8px 0;
@@ -382,20 +382,55 @@ main {
     border-block-start-color: var(--COLOR_PRIMARY);
     animation: spinner 850ms infinite ease-in-out forwards;
   }
+}
 
+.error {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border: 1px solid hsl(348, 53%, 27%);
+  border-radius: 8px;
+  height: fit-content;
+  width: fit-content;
+  padding: 8px 16px;
+  background-color: hsl(348, 25%, 85%);
+
+  .error-title {
+    color: hsl(348, 73%, 57%);
+  }
+
+  .error-message {
+    color: hsl(348, 53%, 27%);
+  }
+}
+
+.spinner,
+.weather-info,
+.error {
   pointer-events: none;
-  transform: scale(2);
   opacity: 0;
   transition:
     transform 350ms ease-in,
     opacity 350ms ease-in;
 }
 
-.spinner.visible {
-  transform: scale(1);
+.spinner {
+  transform: scale(2);
+}
+
+.weather-info,
+.error {
+  transform: translateY(-30px);
+}
+
+.spinner.visible,
+.weather-info.visible,
+.error.visible {
+  transform: scale(1) translateY(0);
   opacity: 1;
   transition-duration: 200ms;
   transition-timing-function: ease-out;
+  transition-delay: 500ms;
 }
 
 @keyframes spinner {
