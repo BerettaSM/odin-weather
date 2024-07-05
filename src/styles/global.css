@@ -57,7 +57,6 @@ h6 {
 
   --HUE: var(--NIGHT_HUE);
 
-  --COLOR_TEXT: #41414d;
   --COLOR_PRIMARY: hsl(var(--HUE), 47%, 47%);
   --COLOR_SECONDARY: hsl(var(--HUE), 64%, 19%);
   --COLOR_GRAY-100: hsl(var(--HUE), 14%, 97%);
@@ -66,7 +65,7 @@ h6 {
 }
 
 body {
-  color: var(--COLOR_TEXT);
+  color: var(--COLOR_SECONDARY);
   background-color: var(--COLOR_GRAY-300);
   padding: 0 16px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -146,7 +145,7 @@ main {
   display: flex;
   flex-direction: column;
 
-  .location-form {
+  .search-form {
     width: fit-content;
     margin: auto;
     padding: 16px 0;
@@ -169,7 +168,8 @@ main {
         }
 
         .debounce-bar {
-          --time: 1500ms;
+          --time: 1000ms;
+          --transition-function: cubic-bezier(0.88, 0.02, 1, 0.71);
           height: 8px;
           position: relative;
 
@@ -179,10 +179,17 @@ main {
             inset: 0;
             height: 100%;
             width: 100%;
-            background-color: var(--COLOR_SECONDARY);
+            background-color: var(--COLOR_PRIMARY);
             transform-origin: left center;
+            transform: scaleX(0);
+            transition:
+              transform var(--time) var(--transition-function),
+              background-color var(--time) var(--transition-function);
+          }
+
+          &.filled::after {
             transform: scaleX(1);
-            transition: transform var(--time) ease-out;
+            background-color: var(--COLOR_SECONDARY);
           }
         }
       }
@@ -207,6 +214,13 @@ main {
 
       .location {
         font-size: 1.35rem;
+        line-height: 1.25;
+
+        &:last-of-type {
+          font-size: 1.15rem;
+          margin-block-end: 1rem;
+          line-height: 1;
+        }
       }
 
       .datetime {
@@ -215,7 +229,7 @@ main {
         line-height: 1;
       }
 
-      .temperature-scale-wrapper {
+      .scale-wrapper {
         font-size: 4rem;
       }
     }
@@ -231,18 +245,25 @@ main {
 
     .daily-forecasts {
       grid-area: daily-forecasts;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      /* display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); */
+
+      display: flex;
+      overflow-x: auto;
       gap: 8px;
+      padding: 8px 0;
+      scroll-snap-type: x proximity;
 
       .forecast {
         display: flex;
         flex-direction: column;
+        flex: 0 0 120px;
         align-items: center;
         gap: 8px;
         border: 2px solid var(--COLOR_PRIMARY);
         border-radius: 8px;
         padding: 8px;
+        scroll-snap-align: start;
 
         h6 {
           font-size: 1rem;
@@ -263,7 +284,7 @@ main {
           }
         }
 
-        .icon {
+        .forecast-icon {
           margin: auto;
         }
       }
@@ -313,32 +334,32 @@ main {
   }
 }
 
-.temperature-scale-wrapper {
+.scale-wrapper {
   position: relative;
+  white-space: nowrap;
   overflow: hidden;
 
-  .celsius,
-  .fahrenheit {
+  .metric,
+  .imperial {
+    display: block;
     transition: transform 250ms ease-in-out;
   }
 
-  .celsius {
-    display: block;
-  }
-
-  .fahrenheit {
+  .imperial {
     position: absolute;
     inset: 0;
-    transform: translateY(100%);
+    height: 100%;
+    width: 100%;
+    transform: translateY(100%) translateX(-30px);
   }
 }
 
-.temperature-scale-wrapper.show-f {
-  .celsius {
+.scale-wrapper.show-imperial {
+  .metric {
     transform: translateY(-100%);
   }
 
-  .fahrenheit {
+  .imperial {
     transform: translateY(0%);
   }
 }
