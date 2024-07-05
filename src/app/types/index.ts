@@ -61,3 +61,7 @@ export interface AdditionalInfo
 export interface LocationInfo
   extends Pick<Location, 'localtime' | 'country' | 'name' | 'region'>,
     Pick<CurrentWeather, 'condition' | 'temp_c' | 'temp_f' | 'is_day'> {}
+
+export interface SearchParams {
+  [key: string]: string;
+}
