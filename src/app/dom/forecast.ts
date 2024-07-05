@@ -2,6 +2,7 @@ import type { Forecast } from '../types';
 
 import { getWeatherType } from '../api/codes';
 import { getCurrentWeatherIcon } from './icons';
+import { parseISODateLocal } from '../utils';
 
 const template = document.getElementById(
   'forecast-template',
@@ -10,8 +11,8 @@ template.remove();
 
 export function createForecastCard(forecast: Forecast) {
   const card = template.content.cloneNode(true) as HTMLDivElement;
-  const date = new Date(forecast.date);
-  const weekday = date.toLocaleDateString(undefined, { weekday: 'long' });
+  const date = parseISODateLocal(forecast.date);
+  const weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
   card.querySelector('.forecast-day')!.textContent = weekday;
   card.querySelector('.high .metric')!.textContent =
     `${forecast.day.maxtemp_c} °C`;

@@ -1,5 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
+import type { SearchParams } from '../types';
+
 /**
  * This functions creates a debounced version of the callback
  * passed in.
@@ -22,4 +24,20 @@ export function debounce<F extends (...args: any) => any>(
       callback(...args);
     }, delayMs);
   };
+}
+
+export async function delay(ms: number = 1000) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+export function parseISODateLocal(str: string) {
+  const tokens = str.split(/\D/).map(Number);
+  tokens[1]--; // First month is 0.
+  return new Date(...(tokens as []));
+}
+
+export function parseSearchParameters(params: SearchParams) {
+  return Object.entries(params)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&');
 }
