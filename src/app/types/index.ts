@@ -49,3 +49,15 @@ export interface WeatherAPIResponse {
   current: CurrentWeather;
   forecast: Forecasts;
 }
+
+export interface AdditionalInfo
+  extends Pick<
+    CurrentWeather,
+    'feelslike_c' | 'feelslike_f' | 'humidity' | 'wind_kph' | 'wind_mph'
+  > {
+  chance_of_rain: number;
+}
+
+export interface LocationInfo
+  extends Pick<Location, 'localtime' | 'country' | 'name' | 'region'>,
+    Pick<CurrentWeather, 'condition' | 'temp_c' | 'temp_f' | 'is_day'> {}
