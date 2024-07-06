@@ -55,6 +55,8 @@ import { HttpError } from './http';
     // Loading state start -> hide main component/error component, show spinner, disable input
     main.classList.remove('visible');
     spinner.classList.add('visible');
+    searchInput.parentElement!.classList.add('disabled');
+    searchInput.disabled = true;
     hideErrors();
 
     try {
@@ -69,6 +71,10 @@ import { HttpError } from './http';
     } finally {
       // Loading state end ->  hide spinner, enable input
       spinner.classList.remove('visible');
+      searchInput.parentElement!.classList.remove('disabled');
+      searchInput.disabled = false;
     }
   });
+
+  searchInput.focus();
 }
