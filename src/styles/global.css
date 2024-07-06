@@ -51,17 +51,50 @@ h6 {
 /* STYLES */
 
 :root {
-  --MORNING_HUE: 60;
-  --AFTERNOON_HUE: 360;
-  --NIGHT_HUE: 225;
+  --MORNING: hsl(1, 70%, 70%);
+  --NOON: hsl(353, 40%, 61%);
+  --AFTERNOON: hsl(326, 26%, 44%);
+  --EVENING: hsl(280, 37%, 32%);
+  --NIGHT: hsl(256, 52%, 25%);
 
-  --HUE: var(--NIGHT_HUE);
+  --MORNING_HUE: 1;
+  --NOON_HUE: 353;
+  --AFTERNOON_HUE: 326;
+  --EVENING_HUE: 280;
+  --NIGHT_HUE: 256;
 
-  --COLOR_PRIMARY: hsl(var(--HUE), 47%, 47%);
-  --COLOR_SECONDARY: hsl(var(--HUE), 64%, 19%);
+  --MORNING_SATURATION: 70%;
+  --NOON_SATURATION: 40%;
+  --AFTERNOON_SATURATION: 26%;
+  --EVENING_SATURATION: 37%;
+  --NIGHT_SATURATION: 52%;
+
+  --MORNING_LIGHTNESS: 47%;
+  --NOON_LIGHTNESS: 51%;
+  --AFTERNOON_LIGHTNESS: 44%;
+  --EVENING_LIGHTNESS: 32%;
+  --NIGHT_LIGHTNESS: 25%;
+
+  --HUE: var(--MORNING_HUE);
+  --SATURATION: var(--MORNING_SATURATION);
+  --LIGHTNESS: var(--MORNING_LIGHTNESS);
+
+  --COLOR_PRIMARY: hsl(
+    var(--HUE),
+    var(--SATURATION),
+    calc(var(--LIGHTNESS) + 10%)
+  );
+  --COLOR_SECONDARY: hsl(
+    var(--HUE),
+    calc(var(--SATURATION) - 10%),
+    var(--LIGHTNESS)
+  );
   --COLOR_GRAY-100: hsl(var(--HUE), 14%, 97%);
   --COLOR_GRAY-300: hsl(var(--HUE), 38%, 90%);
   --COLOR_GRAY-500: hsl(var(--HUE), 28%, 70%);
+
+  --COLOR_TRANSITION: background-color 1750ms ease-in-out,
+    color 1750ms ease-in-out;
 }
 
 body {
@@ -77,6 +110,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  transition: var(--COLOR_TRANSITION);
 }
 
 header {
@@ -167,6 +201,12 @@ main {
           padding: 16px 16px 8px;
           border-radius: 12px 12px 0 0;
           border: none;
+          background-color: var(--COLOR_GRAY-300);
+          color: var(--COLOR_PRIMARY);
+        }
+
+        input:focus {
+          outline: none;
         }
 
         .debounce-bar {
@@ -297,10 +337,14 @@ main {
 .additional-info {
   display: flex;
   gap: 8px;
-  width: fit-content;
+  width: 100%;
 
   span {
     font-size: 1.5rem;
+  }
+
+  .info {
+    width: 100%;
   }
 }
 

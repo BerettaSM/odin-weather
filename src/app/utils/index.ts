@@ -2,6 +2,15 @@
 
 import type { SearchParams } from '../types';
 
+export function getDayPeriod(date: Date) {
+  const hour = date.getHours();
+  if (hour < 6 || hour > 20) return 'NIGHT';
+  if (hour < 12) return 'MORNING';
+  if (hour < 15) return 'NOON';
+  if (hour < 18) return 'AFTERNOON';
+  return 'EVENING';
+}
+
 /**
  * This functions creates a debounced version of the callback
  * passed in.

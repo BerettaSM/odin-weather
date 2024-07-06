@@ -9,6 +9,7 @@ import { getWeatherType } from '../api/codes';
 import { createForecastCards } from './forecast';
 import { getCurrentWeatherIcon } from './icons';
 import { extractAdditionalInfo, extractLocationInfo } from '../api/helpers';
+import { getDayPeriod, parseISODateLocal } from '../utils';
 
 const SCALE_WRAPPER_CLASS = 'scale-wrapper';
 
@@ -69,6 +70,17 @@ export function renderWeatherData(apiResponse: WeatherAPIResponse) {
   const locationInfo = extractLocationInfo(apiResponse);
   renderCurrentInfo(locationInfo);
   renderForecasts(apiResponse.forecast.forecastday);
+  const dayPeriod = getDayPeriod(
+    parseISODateLocal(apiResponse.current.last_updated),
+  );
+  changeColorScheme(dayPeriod);
+}
+
+export function changeColorScheme(period: ReturnType<typeof getDayPeriod>) {
+  const html = document.documentElement;
+  html.style.setProperty('--HUE', `var(--${period}_HUE)`);
+  html.style.setProperty('--SATURATION', `var(--${period}_SATURATION)`);
+  html.style.setProperty('--LIGHTNESS', `var(--${period}_LIGHTNESS)`);
 }
 
 export function switchTemperature(scale: 'metric' | 'imperial') {
